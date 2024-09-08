@@ -8,7 +8,7 @@ public class Token {
 
     public TokenKind kind;
     private String operator;
-    private int value;
+    private Integer value;
     private String unParsed;
 
     static char[] unaryOperators = {'-'};  // We apply these right away because there is no benifit to holding off
@@ -67,13 +67,13 @@ public class Token {
         }
         
         kind = TokenKind.value;
-        value = unParsed.substring(0, strIndex);
+        value = Integer.valueOf(unParsed.substring(0, strIndex));
         unParsed = unParsed.substring(strIndex);
     }
 
     private void parseAsOperator() {
         kind = TokenKind.operator;
-        value = unParsed.substring(0, 1);
+        value = Integer.valueOf(unParsed.substring(0, 1));
         unParsed = unParsed.substring(1);
     }
 
@@ -86,10 +86,11 @@ public class Token {
 
     public int getValue() throws TokenException {
         if (kind != TokenKind.value) {
-            throw new TokenException(this, "Trying to extract value from an operator token.")
+            throw new TokenException(this, "Trying to extract value from an operator token.");
         }
         return value;
     }
+
 
 }
 

@@ -3,7 +3,7 @@ package com.hydris.cover;
 public class AstNodeException extends Exception {
    
     public AstNode astNode;
-    public AstNode rootNode
+    public AstNode rootNode;
 
     AstNodeException(AstNode current, AstNode root, String message) {
         super(message);

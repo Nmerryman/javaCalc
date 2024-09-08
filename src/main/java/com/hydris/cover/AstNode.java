@@ -5,7 +5,7 @@ import java.util.List;
 
 public class AstNode {
 
-    private Token token;
+    public Token token;
     public List<AstNode> children;
 
     AstNode(Token token) {

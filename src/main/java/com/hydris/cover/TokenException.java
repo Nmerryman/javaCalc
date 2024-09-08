@@ -11,10 +11,10 @@ public class TokenException extends Exception {
 
     TokenException(Token value, String message, Throwable cause) {
         super(message, cause);
-        tokenStae = value;
+        tokenState = value;
     }
 
-    public String getToken() {
+    public Token getToken() {
         return tokenState;
     }
 
