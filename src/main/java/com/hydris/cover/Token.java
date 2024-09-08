@@ -7,7 +7,8 @@ import org.apache.commons.lang3.ArrayUtils;
 public class Token {
 
     public TokenKind kind;
-    public String value;
+    private String operator;
+    private int value;
     private String unParsed;
 
     static char[] unaryOperators = {'-'};  // We apply these right away because there is no benifit to holding off
@@ -74,6 +75,20 @@ public class Token {
         kind = TokenKind.operator;
         value = unParsed.substring(0, 1);
         unParsed = unParsed.substring(1);
+    }
+
+    public String getOperator() throws TokenException {
+        if (kind != TokenKind.operator) {
+            throw new TokenException(this, "Trying to extract operator from a value token.");
+        }
+        return operator;
+    }
+
+    public int getValue() throws TokenException {
+        if (kind != TokenKind.value) {
+            throw new TokenException(this, "Trying to extract value from an operator token.")
+        }
+        return value;
     }
 
 }
