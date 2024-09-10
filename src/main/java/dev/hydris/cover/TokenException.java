@@ -1,4 +1,4 @@
-package com.hydris.cover;
+package dev.hydris.cover;
 
 public class TokenException extends Exception {
    
@@ -16,6 +16,10 @@ public class TokenException extends Exception {
 
     public Token getToken() {
         return tokenState;
+    }
+
+    public String errorString() {
+        return tokenState.kind + " based on " + tokenState.getUnParsed();
     }
 
 }

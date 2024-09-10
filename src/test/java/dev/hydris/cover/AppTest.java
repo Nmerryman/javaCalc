@@ -1,4 +1,4 @@
-package com.hydris.cover;
+package dev.hydris.cover;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

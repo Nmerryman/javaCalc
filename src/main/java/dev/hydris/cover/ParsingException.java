@@ -1,4 +1,4 @@
-package com.hydris.cover;
+package dev.hydris.cover;
 
 public class ParsingException extends Exception {
    

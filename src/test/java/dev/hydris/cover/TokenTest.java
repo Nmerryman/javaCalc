@@ -1,4 +1,4 @@
-package com.hydris.cover;
+package dev.hydris.cover;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,15 +23,39 @@ public class TokenTest {
         assertEquals("No text to parse.", exception.getMessage());
     }
 
+
     @Test 
-    public void tokenizeSingleDigit() throws ParsingException {
+    public void tokenizeSingleDigit() throws ParsingException, TokenException {
         Token t = new Token("2");
 
         t.parse();
 
         assertEquals(t.kind, TokenKind.value);
-        assertEquals(t.value, "2");
+        assertEquals(t.getValue(), 2);
     }
+
+    @Test 
+    public void expectDigit() throws ParsingException {
+        Token t = new Token("1");
+        
+        t.parse();
+
+        Throwable exception = assertThrows(TokenException.class, () -> t.getOperator());
+
+        assertEquals(exception.getMessage(), "Trying to extract operator from a value token.");
+    }
+
+    @Test 
+    public void expectOperator() throws ParsingException {
+        Token t = new Token("-");
+
+        t.parse();
+
+        Throwable exception = assertThrows(TokenException.class, () -> t.getValue());
+
+        assertEquals(exception.getMessage(), "Trying to extract value from an operator token."); 
+    }
+
 
     @Test 
     public void tokenizeMultiDigit() throws Exception {
@@ -40,7 +64,7 @@ public class TokenTest {
         t.parse();
 
         assertEquals(t.kind, TokenKind.value);
-        assertEquals(t.value, "1234");
+        assertEquals(t.getValue(), 1234);
     }
 
     @Test
@@ -49,7 +73,7 @@ public class TokenTest {
 
         t.parse();
 
-        assertEquals(t.value, "-1");
+        assertEquals(t.getValue(), -1);
     }
 
     @Test
@@ -58,7 +82,7 @@ public class TokenTest {
 
         t.parse();
 
-        assertEquals(t.value, "1");
+        assertEquals(t.getValue(), 1);
     }
 
     @Test
@@ -67,7 +91,7 @@ public class TokenTest {
 
         t.parse();
 
-        assertEquals(t.value, "1");
+        assertEquals(t.getValue(), 1);
     }
 
     @Test
@@ -75,17 +99,17 @@ public class TokenTest {
         Token t = new Token(" + - * /");
         
         t.parse();
-        assertEquals(t.value, "+");
+        assertEquals(t.getOperator(), "+");
         assertEquals(t.kind, TokenKind.operator);
 
         t.parse();
-        assertEquals(t.value, "-");
+        assertEquals(t.getOperator(), "-");
 
         t.parse();
-        assertEquals(t.value, "*");
+        assertEquals(t.getOperator(), "*");
         
         t.parse();
-        assertEquals(t.value, "/");
+        assertEquals(t.getOperator(), "/");
     }
 
     @Test

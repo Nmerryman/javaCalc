@@ -1,4 +1,4 @@
-package com.hydris.cover;
+package dev.hydris.cover;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -73,7 +73,7 @@ public class Token {
 
     private void parseAsOperator() {
         kind = TokenKind.operator;
-        value = Integer.valueOf(unParsed.substring(0, 1));
+        operator = unParsed.substring(0, 1);
         unParsed = unParsed.substring(1);
     }
 

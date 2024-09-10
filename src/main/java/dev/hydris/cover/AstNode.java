@@ -1,4 +1,4 @@
-package com.hydris.cover;
+package dev.hydris.cover;
 
 import java.util.ArrayList;
 import java.util.List;
