@@ -17,6 +17,19 @@ public class AstNode {
         children.add(node);
     }
     
+    public String serialize() throws TokenException {
+        if (token.kind == TokenKind.value) {
+            return String.valueOf(token.getValue());
+        } else {
+            String result = "(";
+            result += token.getOperator(); 
+            for (AstNode child: children) {
+                result += " " + child.serialize();
+            }
+            result += ")";
+            return result;
+        }
+    }
 
 }
 

@@ -119,6 +119,112 @@ public class TokenTest {
         Throwable exception = assertThrows(ParsingException.class, () -> t.parse());
         assertEquals(exception.getMessage(), "Invalid data and can not be parsed.");
     }
+
+    @Test
+    public void expression1() throws Exception {
+        Token t = new Token("1+1");
+
+        t.parse();
+        assertEquals(t.getValue(), 1);
+
+        t.parse();
+        assertEquals(t.getOperator(), "+");
+
+        t.parse();
+        assertEquals(t.getValue(), 1);
+    }
+    
+    @Test
+    public void expression2() throws Exception {
+        Token t = new Token("1 + 1");
+
+        t.parse();
+        assertEquals(t.getValue(), 1);
+
+        t.parse();
+        assertEquals(t.getOperator(), "+");
+
+        t.parse();
+        assertEquals(t.getValue(), 1);
+    }
+
+    @Test
+    public void expression3() throws Exception {
+        Token t = new Token("1-1");
+
+        t.parse();
+        assertEquals(t.getValue(), 1);
+
+        t.parse();
+        assertEquals(t.getOperator(), "-");
+
+        t.parse();
+        assertEquals(t.getValue(), 1);
+    }
+
+    @Test
+    public void expression4() throws Exception {
+        Token t = new Token("1 - 1");
+
+        t.parse();
+        assertEquals(t.getValue(), 1);
+
+        t.parse();
+        assertEquals(t.getOperator(), "-");
+
+        t.parse();
+        assertEquals(t.getValue(), 1);
+    }
+
+    @Test
+    public void expression5() throws Exception {
+        Token t = new Token("1 - -1");
+
+        t.parse();
+        assertEquals(t.getValue(), 1);
+
+        t.parse();
+        assertEquals(t.getOperator(), "-");
+
+        t.parse();
+        assertEquals(t.getValue(), -1);
+    }
+
+    @Test
+    public void expression6() throws Exception {
+        Token t = new Token("1+5-2*6/3");
+
+        t.parse();
+        assertEquals(t.getValue(), 1);
+
+        t.parse();
+        assertEquals(t.getOperator(), "+");
+
+        t.parse();
+        assertEquals(t.getValue(), 5);
+
+        t.parse();
+        assertEquals(t.getOperator(), "-");
+
+        t.parse();
+        assertEquals(t.getValue(), 2);
+
+        t.parse();
+        assertEquals(t.getOperator(), "*");
+
+        t.parse();
+        assertEquals(t.getValue(), 6);
+
+        t.parse();
+        assertEquals(t.getOperator(), "/");
+
+        t.parse();
+        assertEquals(t.getValue(), 3);
+
+
+
+
+    }
 }
 
 

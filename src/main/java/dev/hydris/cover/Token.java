@@ -28,6 +28,20 @@ public class Token {
         return unParsed;
     }
 
+    public void _loadClone(TokenKind nkind, String nop, Integer nval, String nunParsed) {
+       // This only exists to create clones. It's probably a symptom of the parsing method.
+       kind = nkind;
+       operator = nop;
+       value = nval;
+       unParsed = nunParsed;
+    }
+
+    public Token clone() {
+        Token t = new Token();
+        t._loadClone(kind, operator, value, unParsed);
+        return t;
+    }
+
     public String parse(String input) throws ParsingException {
         unParsed = input;
         return parse();
@@ -45,7 +59,8 @@ public class Token {
         } 
         // At this point unParsed must be a length of >= 1
 
-        if (unParsed.length() >= 2 && ArrayUtils.contains(unaryOperators, unParsed.charAt(0)) && Character.isDigit(unParsed.charAt(1))) {  // This is the only scenario that a unary works
+        if (unParsed.length() >= 2 && ArrayUtils.contains(unaryOperators, unParsed.charAt(0)) && Character.isDigit(unParsed.charAt(1)) && kind != TokenKind.value) {  // This is the only scenario that a unary works
+                                                                                                                                        // This kind check checks the last parse for a digit. If it is, then this is a op connecting to values
             parseAsValue();
         } else if (ArrayUtils.contains(binaryOperators, unParsed.charAt(0))) {  // If it's a binary operator, we can easily extract it
             parseAsOperator();
